@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stark Industries: Project Goddess</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Serif+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        /* Custom Iron Man Cursor */
+        * { cursor: url('https://cdn.custom-cursor.com/cursors/pack2237/iron_man_arc_reactor_cursor.png'), auto !important; margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #050505; color: white; overflow-x: hidden;
+            font-family: 'Noto Serif Bengali', serif; scroll-behavior: smooth;
+        }
+
+        /* --- PHASE 1: STARK TERMINAL --- */
+        #stark-terminal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: #020b14; z-index: 100; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            font-family: 'Orbitron', sans-serif; transition: opacity 2s ease-in-out;
+        }
+
+        .terminal-text { color: #00ffff; font-size: 18px; margin-bottom: 20px; text-shadow: 0 0 10px #00ffff; height: 60px; }
+        .alert-text { color: #ff0033; font-weight: bold; text-shadow: 0 0 15px #ff0033; font-size: 24px; display: none; }
+
+        /* Arc Reactor Scanner */
+        .scanner-btn {
+            width: 120px; height: 120px; border-radius: 50%; background: transparent;
+            border: 4px solid #00ffff; box-shadow: 0 0 20px #00ffff, inset 0 0 20px #00ffff;
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            animation: pulse-ring 2s infinite; position: relative; transition: all 0.5s ease;
+        }
+        .scanner-btn::after {
+            content: ''; width: 80px; height: 80px; background: rgba(0, 255, 255, 0.2);
+            border-radius: 50%; box-shadow: 0 0 30px #00ffff;
+        }
+        .scanner-btn:active { transform: scale(0.9); box-shadow: 0 0 50px #00ffff, inset 0 0 50px #00ffff; }
+
+        @keyframes pulse-ring { 0% { transform: scale(0.95); box-shadow: 0 0 10px #00ffff; } 50% { transform: scale(1.05); box-shadow: 0 0 30px #00ffff; } 100% { transform: scale(0.95); box-shadow: 0 0 10px #00ffff; } }
+
+        /* --- PHASE 2: ROMANTIC UNIVERSE --- */
+        #romantic-universe {
+            display: none; min-height: 100vh; width: 100%; position: relative;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            padding: 50px 20px; text-align: center;
+        }
+
+        /* CSS Stars for Cinematic Background */
+        .stars { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; background: transparent; }
+        .stars::after { content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 2px; background: transparent; box-shadow: 10vw 20vh #fff, 20vw 50vh #fff, 40vw 10vh #fff, 60vw 80vh #fff, 80vw 30vh #fff, 90vw 90vh #fff, 30vw 70vh #fff, 50vw 40vh #fff, 70vw 60vh #fff; animation: twinkling 4s infinite alternate; }
+        
+        @keyframes twinkling { 0% { opacity: 0.3; } 100% { opacity: 1; transform: scale(1.2); } }
+
+        /* Cinematic Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 20px;
+            padding: 30px; margin: 30px auto; max-width: 500px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); opacity: 0; transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1); position: relative; z-index: 10;
+        }
+        .glass-card.visible { opacity: 1; transform: translateY(0); }
+        .glass-card:hover { border-color: rgba(255, 105, 180, 0.5); box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2); }
+
+        .poem-text { font-size: 22px; color: #ffe6f2; line-height: 1.8; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .highlight { color: #ff4d94; font-weight: bold; }
+
+        .magic-btn {
+            background: linear-gradient(45deg, #ff0055, #ff9900); border: none; padding: 12px 30px;
+            color: white; font-size: 18px; border-radius: 30px; cursor: pointer; font-family: 'Orbitron', sans-serif;
+            margin-top: 15px; transition: 0.3s; box-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
+        }
+        .magic-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 0, 85, 0.8); }
+
+        /* Images & Video */
+        .cinematic-gif { width: 100%; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .video-wrapper { position: relative; margin-top: 20px; border: 4px solid #ff0055; border-radius: 15px; overflow: hidden; box-shadow: 0 0 30px rgba(255, 0, 85, 0.6); display: none; }
+        .birthday-video { width: 100%; display: block; }
+        
+        .ironman-sig { font-family: 'Orbitron', sans-serif; color: #00ffff; font-size: 24px; margin-top: 20px; text-shadow: 0 0 10px #00ffff; }
+    </style>
+</head>
+<body>
+
+    <div id="stark-terminal">
+        <h1 style="color: #00ffff; margin-bottom: 10px; font-size: 30px; letter-spacing: 2px;">J.A.R.V.I.S V.4.0</h1>
+        <div id="typewriter" class="terminal-text">Awaiting Biometric Scan...</div>
+        
+        <div class="scanner-btn" id="scanner" onclick="startScan()"></div>
+        <p style="margin-top: 20px; color: #555; font-size: 14px; font-family: 'Orbitron', sans-serif;">TAP ARC REACTOR TO VERIFY IDENTITY</p>
+        
+        <div id="alert-msg" class="alert-text"><br>CRITICAL ERROR: EXTREME CUTENESS DETECTED!<br>HEART_THIEF PROTOCOL INITIATED...</div>
+    </div>
+
+    <div id="romantic-universe">
+        <div class="stars"></div>
+
+        <div class="glass-card" id="card1">
+            <h2 style="color: #00ffff; font-family: 'Orbitron'; margin-bottom: 15px;">ACCESS GRANTED</h2>
+            <img class="cinematic-gif" src="https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif" alt="Avengers">
+            <p class="poem-text">পুরো গ্যালাক্সি জুড়ে খোঁজ নিয়ে দেখলাম, আজকের দিনটা নাকি সবচেয়ে স্পেশাল! তাই পুরো টিম হাজির...</p>
+            <button class="magic-btn" onclick="revealCard(2)">নেক্সট ম্যাজিক ✨</button>
+        </div>
+
+        <div class="glass-card" id="card2" style="display:none;">
+            <p class="poem-text">
+                "<span class="highlight">তুমিই রাত্রি, তুমিই নুপুর, তুমি জোৎস্নার আলো।</span><br>
+                দিশায় যখন লাগে গ্রহণ, তোমার চিন্তায় দেয় আলো।" 🌙
+            </p>
+            <img src="https://media.giphy.com/media/l41JWbGl7Ui0ihS4U/giphy.gif" style="width: 80px; margin-top: 15px;">
+            <br>
+            <button class="magic-btn" onclick="revealCard(3)">আরও একটু... 💖</button>
+        </div>
+
+        <div class="glass-card" id="card3" style="display:none;">
+            <img class="cinematic-gif" src="https://media.giphy.com/media/MC48888b1OId914M4g/giphy.gif" alt="Funny Birthday" style="width: 70%;">
+            <p class="poem-text" style="margin-top: 15px;">
+                "<span class="highlight">পাহাড় তুমি, নদী তুমি, তোমার চিত্রই সম্মান।</span><br>
+                ভালোবেসে তুমি ছুঁয়ে দিলে পাথরেও প্রায় প্রাণ।" 🏞️
+            </p>
+            <button class="magic-btn" onclick="revealCard(4)">শেষ সারপ্রাইজ 🎁</button>
+        </div>
+
+        <div class="glass-card" id="card4" style="display:none; max-width: 600px;">
+            <img class="cinematic-gif" src="https://media.giphy.com/media/11sBLVxIRvnAwt/giphy.gif" alt="Iron Man">
+            
+            <p class="poem-text" style="font-size: 24px;">
+                "আর তোমার জন্মদিনে প্রার্থনা করি সত্য মনে, তুমি যেদিকেই তাকাও ভালোবাসার টানে, সেটা তোমার হোক মনে প্রাণে।"
+            </p>
+            
+            <h1 style="color: #ff0055; font-size: 35px; margin: 20px 0; text-shadow: 0 0 20px #ff0055;">শুভ জন্মদিন প্রিয়! 🎂</h1>
+
+            <div class="video-wrapper" id="vid-wrap">
+                <video id="birthdayVideo" class="birthday-video" playsinline loop muted>
+                    <source src="wish.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+            <button id="unmuteBtn" class="magic-btn" style="display:none; background: #00ffff; color: black; box-shadow: 0 0 20px #00ffff;" onclick="unmuteVideo()">🔊 সাউন্ড অন করো</button>
+
+            <div class="ironman-sig">"I LOVE YOU 3000"</div>
+            <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" style="width: 120px; margin-top:15px; border-radius: 10px;">
+        </div>
+    </div>
+
+    <script>
+        // TYPEWRITER EFFECT
+        const typer = document.getElementById('typewriter');
+        
+        function typeText(text, delay, callback) {
+            typer.innerHTML = "";
+            let i = 0;
+            let timer = setInterval(() => {
+                typer.innerHTML += text.charAt(i);
+                i++;
+                if (i >= text.length) {
+                    clearInterval(timer);
+                    if(callback) setTimeout(callback, 800);
+                }
+            }, 50);
+        }
+
+        // PHASE 1: THE SCAN PRANK
+        function startScan() {
+            document.getElementById('scanner').style.pointerEvents = 'none'; // Disable double click
+            document.getElementById('scanner').style.borderColor = '#ff0033'; // Turn red
+            document.getElementById('scanner').style.boxShadow = '0 0 30px #ff0033';
+            
+            typeText("Scanning DNA Matrix...", 50, () => {
+                typeText("Analyzing Match: Project Goddess...", 50, () => {
+                    document.getElementById('typewriter').style.display = 'none';
+                    document.getElementById('alert-msg').style.display = 'block';
+                    
+                    // Shake effect
+                    document.getElementById('stark-terminal').animate([
+                        { transform: 'translate(2px, 1px) rotate(0deg)' },
+                        { transform: 'translate(-1px, -2px) rotate(-1deg)' },
+                        { transform: 'translate(-3px, 0px) rotate(1deg)' },
+                        { transform: 'translate(1px, -1px) rotate(0deg)' }
+                    ], { duration: 100, iterations: 15 });
+
+                    // Transition to Phase 2
+                    setTimeout(() => {
+                        let term = document.getElementById('stark-terminal');
+                        term.style.opacity = '0';
+                        setTimeout(() => {
+                            term.style.display = 'none';
+                            document.getElementById('romantic-universe').style.display = 'block';
+                            // Show first card with animation
+                            setTimeout(() => { document.getElementById('card1').classList.add('visible'); }, 200);
+                        }, 2000);
+                    }, 3500);
+                });
+            });
+        }
+
+        // PHASE 2: REVEALING CARDS CINEMATICALLY
+        function revealCard(cardNumber) {
+            let prevCard = document.getElementById('card' + (cardNumber - 1));
+            let nextCard = document.getElementById('card' + cardNumber);
+            
+            // Hide previous button
+            prevCard.querySelector('.magic-btn').style.display = 'none';
+            
+            // Show next card
+            nextCard.style.display = 'block';
+            setTimeout(() => {
+                nextCard.classList.add('visible');
+                // Scroll to the new card smoothly
+                nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // If it's the final card
+                if(cardNumber === 4) {
+                    playFinalClimax();
+                }
+            }, 100);
+        }
+
+        // THE CLIMAX
+        function playFinalClimax() {
+            const videoWrap = document.getElementById('vid-wrap');
+            const video = document.getElementById('birthdayVideo');
+            const unmuteBtn = document.getElementById('unmuteBtn');
+            
+            videoWrap.style.display = 'block';
+            unmuteBtn.style.display = 'inline-block';
+            
+            // Play video (muted first to obey browser rules)
+            video.play().catch(e => console.log("Auto-play prevented."));
+
+            // Cinematic Confetti Explosion
+            var duration = 8 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0055', '#00ffff', '#ffd700'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0055', '#00ffff', '#ffd700'] });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        function unmuteVideo() {
+            const video = document.getElementById('birthdayVideo');
+            video.muted = false;
+            document.getElementById('unmuteBtn').innerText = "🔊 সাউন্ড অন হয়েছে";
+            document.getElementById('unmuteBtn').style.background = "#2ecc71";
+            document.getElementById('unmuteBtn').style.pointerEvents = 'none';
+        }
+    </script>
+</body>
+</html>
